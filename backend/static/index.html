@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AntiGravity | AI Desktop Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <div class="logo">
+                <div class="pulse-ring"></div>
+                <h1>AntiGravity</h1>
+            </div>
+            <p class="subtitle">AI-Powered Touchless OS</p>
+        </header>
+
+        <main id="main-view">
+            <div class="status-card">
+                <h2>System Status</h2>
+                <div class="indicator" id="connection-status">
+                    <span class="dot disconnected"></span>
+                    <span class="text">WebSocket Disconnected</span>
+                </div>
+                
+                <div class="detection-box">
+                    <h3>Camera Feed <span id="system-mode-badge" class="badge">Mode: IDLE</span></h3>
+                    <div class="video-container">
+                        <img id="video-feed" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Camera Feed" />
+                        
+                        <div id="hand-indicator" class="hand-state-overlay inactive">
+                            <p id="hand-text">No hand detected</p>
+                        </div>
+
+                        <!-- Progress overlay for recording -->
+                        <div id="recording-overlay" class="recording-overlay hidden">
+                            <p id="recording-text">Recording...</p>
+                            <div class="progress-bar-bg">
+                                <div id="recording-progress" class="progress-bar-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="prediction-box" class="prediction-box hidden">
+                    <h3>Predicted Action: <span id="predicted-action-text" class="highlight">None</span></h3>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="btn-configure" class="primary-btn">Configure Gestures</button>
+            </div>
+        </main>
+
+        <main id="config-view" class="hidden">
+            <div class="status-card">
+                <h2>Configure New Gesture</h2>
+                <div class="form-group">
+                    <label>Gesture Name (e.g., Peace Sign)</label>
+                    <input type="text" id="gesture-name" placeholder="Enter gesture name..." />
+                </div>
+                
+                <div class="form-group">
+                    <label>Target Action</label>
+                    <select id="action-name">
+                        <option value="Open Browser">Open Browser</option>
+                        <option value="Lock Screen">Lock Screen</option>
+                        <option value="Calculator">Open Calculator</option>
+                        <option value="Close Application">Close Application (Alt+F4)</option>
+                        <option value="Alt Tab">Alt + Tab Navigation</option>
+                        <option value="Task View">Task View (Win+Tab)</option>
+                        <option value="Virtual Desktop Left">Virtual Desktop Left</option>
+                        <option value="Virtual Desktop Right">Virtual Desktop Right</option>
+                        <option value="Volume Up">Volume Up</option>
+                        <option value="Volume Down">Volume Down</option>
+                        <option value="Play/Pause">Play / Pause</option>
+                        <option value="Next Track">Next Track</option>
+                        <option value="Previous Track">Previous Track</option>
+                        <option value="Open YouTube">Open YouTube</option>
+                    </select>
+                </div>
+                
+                <div class="actions">
+                    <button id="btn-record" class="primary-btn pulse-red">Hold Hand & Record</button>
+                    <button id="btn-train" class="secondary-btn">Train Model</button>
+                    <button id="btn-back" class="secondary-btn">Back to Dashboard</button>
+                </div>
+
+                <p id="config-status-msg" class="status-msg"></p>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

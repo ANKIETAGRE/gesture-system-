@@ -1,0 +1,18 @@
+# Environments
+venv/
+env/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Models and data
+*.pkl
+*.task
+
+# Frontend
+node_modules/
+dist/
+.DS_Store
