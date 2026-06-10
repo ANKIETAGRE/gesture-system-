@@ -55,21 +55,22 @@ cooldown_until = 0
 RELOAD_MODEL_FLAG = False
 
 def extract_features(hand_landmarks):
-    wrist = hand_landmarks[0]
     features = []
     # Normalize by the distance between wrist (0) and middle finger mcp (9) for scale invariance
+    wrist = hand_landmarks[0]
     mcp = hand_landmarks[9]
     scale = math.sqrt((mcp.x - wrist.x)**2 + (mcp.y - wrist.y)**2 + (mcp.z - wrist.z)**2)
     if scale == 0:
         scale = 1
 
-    for i in range(1, 21):
-        lm = hand_landmarks[i]
-        features.extend([
-            (lm.x - wrist.x) / scale, 
-            (lm.y - wrist.y) / scale, 
-            (lm.z - wrist.z) / scale
-        ])
+    # Use pairwise distances between all 21 points for rotation & translation invariance
+    for i in range(21):
+        for j in range(i + 1, 21):
+            lm1 = hand_landmarks[i]
+            lm2 = hand_landmarks[j]
+            dist = math.sqrt((lm1.x - lm2.x)**2 + (lm1.y - lm2.y)**2 + (lm1.z - lm2.z)**2)
+            features.append(dist / scale)
+            
     return features
 
 def execute_action(action_name):
